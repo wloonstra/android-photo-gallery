@@ -19,7 +19,6 @@ public abstract class VisibleFragment extends Fragment {
             // If we receive this, we're visible, so cancel the notification
             Log.i(TAG, "canceling notification");
             setResultCode(Activity.RESULT_CANCELED);
-
         }
     };
 
