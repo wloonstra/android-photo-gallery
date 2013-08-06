@@ -28,7 +28,7 @@ import android.widget.SearchView;
 
 import java.util.ArrayList;
 
-public class PhotoGalleryFragment extends Fragment {
+public class PhotoGalleryFragment extends VisibleFragment {
 
     private static final String TAG = "PhotoGalleryFragment";
 

@@ -19,6 +19,11 @@ import java.util.ArrayList;
 public class PollService extends IntentService {
 
     private static final String TAG = "PollService";
+    public static final String PREF_IS_ALARM_ON = "isAlarmOn";
+
+    public static final String ACTION_SHOW_NOTIFICATION = "com.bignerdranch.android.photogallery.SHOW_NOTIFICATION";
+
+    public static final String PERM_PRIVATE = "com.bignerdranch.android.photogallery.PRIVATE";
 
     private static final int POLL_INTERVAL = 1000 * 60;
 
@@ -67,12 +72,7 @@ public class PollService extends IntentService {
             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             notificationManager.notify(0, notification);
 
-
-
-
-
-
-
+            sendBroadcast(new Intent(ACTION_SHOW_NOTIFICATION), PERM_PRIVATE);
         } else {
             Log.i(TAG, "Got an old result: " + resultId);
         }
@@ -98,6 +98,11 @@ public class PollService extends IntentService {
             alarmManager.cancel(pi);
             pi.cancel();
         }
+
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putBoolean(PollService.PREF_IS_ALARM_ON, isOn)
+                .commit();
     }
 
     public static boolean isServiceAlarmOn(Context context) {
